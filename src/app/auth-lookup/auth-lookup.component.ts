@@ -4,18 +4,18 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 
 @Component({
-  selector: 'app-auth0',
-  templateUrl: './auth0.component.html',
-  styleUrls: ['./auth0.component.scss'],
+  selector: 'app-auth-lookup',
+  templateUrl: './auth-lookup.component.html',
+  styleUrls: ['./auth-lookup.component.scss'],
 })
-export class Auth0Component {
+export class AuthLookupComponent {
   id: string = 'foobar';
 
   constructor(private apiService: ApiService, private router: Router) {}
 
   onSubmit(): void {
-    this.apiService.auth0(this.id).subscribe({
-      next: () => this.router.navigate(['auth/1']),
+    this.apiService.authLookup(this.id).subscribe({
+      next: () => this.router.navigate(['auth/login']),
       error: (error) => {
         switch (error.status) {
           case HttpStatusCode.NotFound: {

@@ -4,17 +4,17 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 
 @Component({
-  selector: 'app-auth1',
-  templateUrl: './auth1.component.html',
-  styleUrls: ['./auth1.component.scss'],
+  selector: 'app-auth-login',
+  templateUrl: './auth-login.component.html',
+  styleUrls: ['./auth-login.component.scss'],
 })
-export class Auth1Component {
+export class AuthLoginComponent {
   password: string = '1234';
 
   constructor(private apiService: ApiService, private router: Router) {}
 
   onSubmit(): void {
-    this.apiService.auth1(this.password).subscribe({
+    this.apiService.authLogin(this.password).subscribe({
       next: () => this.router.navigate(['user']),
       error: (error) => {
         switch (error.status) {

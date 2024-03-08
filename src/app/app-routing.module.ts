@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Auth0Component } from './auth0/auth0.component';
-import { Auth1Component } from './auth1/auth1.component';
+import { AuthLoginComponent } from './auth-login/auth-login.component';
+import { AuthLookupComponent } from './auth-lookup/auth-lookup.component';
 import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
-  { path: 'auth', redirectTo: 'auth/0' },
-  { path: 'auth/0', component: Auth0Component },
-  { path: 'auth/1', component: Auth1Component },
+  { path: 'auth', redirectTo: 'auth/lookup' },
+  { path: 'auth/lookup', component: AuthLookupComponent },
+  { path: 'auth/login', component: AuthLoginComponent },
   { path: 'user', component: UserComponent },
 ];
 

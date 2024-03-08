@@ -1,26 +1,29 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Request } from '@shared/schema/request';
+import { AuthControllerParams } from '@shared/controllers/auth';
+import { UserControllerParams } from '@shared/controllers/user';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 
-  auth0<T extends Request.PostAuth0['ResBody']>(id: string): Observable<T> {
+  authLookup<T extends AuthControllerParams.Lookup['ResBody']>(
+    id: string
+  ): Observable<T> {
     return this.httpClient
-      .post<T>('api/auth/0', { id })
+      .post<T>('api/auth/lookup', { id })
       .pipe(tap(({ code }) => sessionStorage.setItem('code', code)));
   }
 
-  auth1<T extends Request.PostAuth1['ResBody']>(
+  authLogin<T extends AuthControllerParams.Login['ResBody']>(
     password: string
   ): Observable<T> {
     return this.httpClient
       .post<T>(
-        'api/auth/1',
+        'api/auth/login',
         { password },
         {
           headers: new HttpHeaders({
@@ -35,7 +38,7 @@ export class ApiService {
       );
   }
 
-  getUser<T extends Request.GetUser['ResBody']>(): Observable<T> {
+  getUser<T extends UserControllerParams.Get['ResBody']>(): Observable<T> {
     return this.httpClient.get<T>(`api/user`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
